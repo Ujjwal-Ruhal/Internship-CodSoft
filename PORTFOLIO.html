@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ujjwal Ruhal — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-hero: linear-gradient(135deg,#4f46e5 0%, #9333ea 60%, #06b6d4 100%);
+      --bg-soft: #f6f8ff;
+      --ink-1: #0f172a; /* slate-900 */
+      --ink-2: #334155; /* slate-700 */
+      --brand: #6366f1; /* indigo-500 */
+      --brand-2: #22d3ee; /* cyan-400 */
+      --accent: #f97316; /* orange-500 */
+      --card: #ffffff;
+      --ring: #e2e8f0;
+      --shadow: 0 10px 30px rgba(2,6,23,.10);
+      --radius: 16px;
+      --speed: .6s;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: "Poppins",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      color: var(--ink-1);
+      background: #fbfdff;
+      line-height: 1.65;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Header / Hero */
+    header{
+      background: var(--bg-hero);
+      color: #fff;
+      padding: 72px 20px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero{
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1{
+      font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+      letter-spacing: .4px;
+      line-height: 1.15;
+      animation: slide-in .9s ease both;
+    }
+    .hero p{
+      margin-top: 10px;
+      font-size: clamp(1rem, .9rem + .5vw, 1.25rem);
+      opacity:.95;
+      animation: fade-in 1s .15s ease both;
+    }
+    nav{
+      margin-top: 22px;
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap: wrap;
+      animation: fade-in .8s .2s ease both;
+    }
+    .pill{
+      padding:10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.25);
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .pill:hover{transform: translateY(-2px); background: rgba(255,255,255,.18); border-color:rgba(255,255,255,.45)}
+
+    /* Section base */
+    section{
+      max-width: 1100px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+    .section-card{
+      background: var(--card);
+      border: 1px solid var(--ring);
+      border-radius: var(--radius);
+      padding: clamp(20px, 4vw, 36px);
+      box-shadow: var(--shadow);
+    }
+    .section-title{
+      font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+      margin-bottom: 14px;
+      color: var(--ink-1);
+    }
+    .section-sub{
+      color: var(--ink-2);
+      margin-bottom: 22px;
+      font-size: .98rem;
+    }
+
+    /* About */
+    #about .wrap{
+      display:grid;
+      grid-template-columns: 240px 1fr;
+      gap: clamp(18px,3vw,28px);
+      align-items:center;
+    }
+    #about .avatar{
+      width: 240px; aspect-ratio: 1/1; border-radius: 50%;
+      border: 6px solid #ffffff;
+      box-shadow: 0 10px 30px rgba(79,70,229,.25);
+      overflow:hidden; transform: translateZ(0);
+      transition: transform .4s ease;
+    }
+    #about .avatar:hover{ transform: scale(1.03) rotate(1.5deg)}
+    #about .details p{margin-bottom:10px}
+    #about .badges{
+      margin-top: 10px; display:flex; gap:10px; flex-wrap:wrap
+    }
+    .badge{
+      background: linear-gradient(90deg, rgba(99,102,241,.12), rgba(34,211,238,.12));
+      border:1px solid rgba(99,102,241,.35);
+      color:#334155;
+      padding: 8px 12px; border-radius: 999px; font-size:.9rem
+    }
+
+    /* Skills */
+    #skills .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap: 16px;
+    }
+    .skill{
+      background: var(--bg-soft);
+      border: 1px solid var(--ring);
+      border-radius: 14px;
+      padding: 16px 14px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      position: relative;
+      overflow:hidden;
+    }
+    .skill::after{
+      content:"";
+      position:absolute; inset:auto -20% -40% -20%;
+      height:60%; background: radial-gradient(60% 60% at 50% 0%, rgba(99,102,241,.18), transparent 60%);
+      transform: translateY(20px);
+      transition: opacity .25s ease, transform .25s ease;
+      opacity:0;
+    }
+    .skill:hover{
+      transform: translateY(-4px);
+      border-color:#cbd5e1;
+      box-shadow: 0 12px 26px rgba(2,6,23,.08);
+    }
+    .skill:hover::after{opacity:1; transform: translateY(0)}
+    .skill h4{font-size:1rem;margin-bottom:6px}
+    .skill p{font-size:.92rem;color:var(--ink-2)}
+
+    /* Projects */
+    #projects .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap:18px;
+    }
+    .project{
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid var(--ring);
+      background: #ffffff;
+      box-shadow: var(--shadow);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+    .project:nth-child(2n){background: linear-gradient(180deg,#ffffff 0%, #f8fafc 100%)}
+    .project:hover{ transform: translateY(-6px); box-shadow: 0 16px 34px rgba(2,6,23,.12); border-color:#c7d2fe }
+    .project .media{aspect-ratio: 16/10; background:#eef2ff}
+    .project .content{padding:14px 16px}
+    .project h4{font-size:1.05rem;margin-bottom:6px}
+    .project p{font-size:.95rem;color:var(--ink-2)}
+
+    /* Resume */
+    #resume .cta{
+      display:flex; gap:14px; flex-wrap:wrap
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 18px; border-radius:12px; font-weight:600;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+      border:1px solid transparent;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--brand) 0%, var(--brand-2) 100%);
+      color:#fff; box-shadow: 0 10px 24px rgba(34,211,238,.22);
+    }
+    .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 14px 30px rgba(34,211,238,.28)}
+    .btn-ghost{
+      background: #fff; border-color: var(--ring); color: var(--ink-1)
+    }
+    .btn-ghost:hover{ transform: translateY(-2px); border-color:#cbd5e1; box-shadow: var(--shadow)}
+
+    /* Contact */
+    #contact .cards{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap:14px;
+    }
+    .contact-card{
+      background:#fff;border:1px solid var(--ring);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);
+      transition: transform .25s ease, border-color .25s;
+    }
+    .contact-card:hover{ transform: translateY(-4px); border-color:#cbd5e1}
+    .muted{color:var(--ink-2);font-size:.95rem}
+
+    /* Footer */
+    footer{
+      margin-top: 56px;
+      background: linear-gradient(135deg,#0b1220,#0a0f1c);
+      color:#cbd5e1;text-align:center;padding:28px 20px
+    }
+    footer a{color:#e2e8f0}
+    footer a:hover{color:#a5b4fc}
+
+    /* Reveal Animations */
+    .reveal{ opacity:0; transform: translateY(28px); }
+    .reveal.show{ opacity:1; transform: translateY(0); transition: opacity var(--speed) ease, transform var(--speed) ease; }
+    .reveal[x-slide="left"]{ transform: translateX(-32px); }
+    .reveal[x-slide="right"]{ transform: translateX(32px); }
+    .reveal[x-slide="left"].show,
+    .reveal[x-slide="right"].show{ transform: translateX(0); }
+
+    /* Keyframes for hero text */
+    @keyframes slide-in{from{opacity:0; transform: translateY(20px)} to{opacity:1; transform:none}}
+    @keyframes fade-in{from{opacity:0} to{opacity:1}}
+
+    /* Responsive tweaks */
+    @media (max-width: 860px){
+      #about .wrap{ grid-template-columns: 1fr; }
+      #about .avatar{ margin:auto }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div class="hero">
+      <h1>Ujjwal Ruhal</h1>
+      <p>Full-Stack Developer in progress — I build clean, fast & delightful web experiences.</p>
+      <nav aria-label="Primary">
+        <a class="pill" href="#about">About</a>
+        <a class="pill" href="#skills">Skills</a>
+        <a class="pill" href="#projects">Projects</a>
+        <a class="pill" href="#resume">Resume</a>
+        <a class="pill" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="section-card">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-sub">Curious mind, clean code, and a soft spot for good UI.</p>
+
+      <div class="wrap">
+        <div class="avatar reveal" x-slide="left">
+          <!-- Demo profile image -->
+          <img src="https://images.pexels.com/photos/7965428/pexels-photo-7965428.jpeg" alt="Profile photo" width="480" height="480" loading="lazy">
+        </div>
+
+        <div class="details reveal" x-slide="right">
+          <p>Hi, I’m <strong>Ujjwal</strong> — I love turning ideas into performant and accessible web apps. I enjoy JavaScript on the front, Python on the back, and a sprinkle of good design everywhere.</p>
+          <p>Currently exploring component architectures, API design, and testing workflows. I value pixel-perfect details, semantic HTML, and readable, maintainable code.</p>
+          <div class="badges">
+            <span class="badge">Clean UI</span>
+            <span class="badge">Responsive</span>
+            <span class="badge">Accessible</span>
+            <span class="badge">Performance-minded</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="reveal">
+    <div class="section-card">
+      <h2 class="section-title">Skills</h2>
+      <p class="section-sub">Tools & tech I use often.</p>
+
+      <div class="grid" id="skillsGrid">
+        <div class="skill reveal"><h4>HTML5</h4><p>Semantic, accessible layouts</p></div>
+        <div class="skill reveal"><h4>CSS3</h4><p>Flex/Grid, animations, responsive</p></div>
+        <div class="skill reveal"><h4>JavaScript</h4><p>DOM, fetch, ES modules</p></div>
+        <div class="skill reveal"><h4>Python</h4><p>Flask/Django basics, scripts</p></div>
+        <div class="skill reveal"><h4>C++</h4><p>DSA fundamentals</p></div>
+        <div class="skill reveal"><h4>Git & GitHub</h4><p>Branches, PRs, workflows</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="reveal">
+    <div class="section-card">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-sub">A few small things I’ve built while learning.</p>
+
+      <div class="grid" id="projectsGrid">
+        <article class="project reveal">
+          <div class="media"><img src="https://images.pexels.com/photos/6929012/pexels-photo-6929012.jpeg" alt="Calculator app screenshot" loading="lazy"></div>
+          <div class="content">
+            <h4>Calculator App</h4>
+            <p>Interactive calculator using HTML, CSS Grid & vanilla JS with keyboard support.</p>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <div class="media"><img src="https://images.pexels.com/photos/265152/pexels-photo-265152.jpeg" alt="Landing page screenshot" loading="lazy"></div>
+          <div class="content">
+            <h4>Landing Page</h4>
+            <p>Clean hero, feature grid, and CTA with a11y-friendly components.</p>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <div class="media"><img src="https://images.pexels.com/photos/2442888/pexels-photo-2442888.jpeg" alt="Portfolio screenshot" loading="lazy"></div>
+          <div class="content">
+            <h4>Portfolio</h4>
+            <p>Single-file site (this one!) with reveal animations & gradient theming.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume" class="reveal">
+    <div class="section-card">
+      <h2 class="section-title">Resume</h2>
+      <p class="section-sub">Here’s a demo resume link (safe to share).</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" rel="noopener">View Demo Resume</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <div class="section-card">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-sub">Demo details only — replace later with your real info.</p>
+      <div class="cards">
+        <div class="contact-card reveal">
+          <strong>Email</strong>
+          <div class="muted">demo.email@example.com</div>
+        </div>
+        <div class="contact-card reveal">
+          <strong>LinkedIn</strong>
+          <div class="muted"><a href="https://www.linkedin.com" target="_blank" rel="noopener">linkedin.com/in/demo</a></div>
+        </div>
+        <div class="contact-card reveal">
+          <strong>GitHub</strong>
+          <div class="muted"><a href="https://github.com" target="_blank" rel="noopener">github.com/demo</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Ujjwal Ruhal · Built with HTML, CSS & JS</p>
+  </footer>
+
+  <script>
+    // Intersection Observer for reveal-on-scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('show');
+          io.unobserve(entry.target); // animate once
+        }
+      });
+    }, { threshold: 0.2 });
+
+    revealEls.forEach((el,i) => {
+      // Stagger delay for nicer cascade
+      el.style.transitionDelay = (el.closest('#skills, #projects') ? (i % 6) * 60 : 80) + 'ms';
+      io.observe(el);
+    });
+
+    // Optional: smooth focus outline on keyboard nav
+    document.body.addEventListener('keydown', (e)=>{
+      if(e.key==='Tab'){ document.body.classList.add('show-focus'); }
+    });
+  </script>
+</body>
+</html>
